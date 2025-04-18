@@ -8,14 +8,16 @@ namespace SoftHub.AceOfShadows
         public SpriteRenderer spriteRenderer;
         public Sprite defaultSprite;
         public Sprite topCardSprite;
+
+        public int defaultSortingOrder;
+        public int topSortingOrder;
+
         public Vector3 offset = Vector3.zero;
 
         private Action onMoveComplete;
 
         public void MoveTo(Vector3 target, float duration, Action onComplete)
         {
-            spriteRenderer.sortingOrder = 1;
-
             transform.SetParent(null); // Detach from parent before world movement
             onMoveComplete = onComplete;
 
@@ -33,7 +35,7 @@ namespace SoftHub.AceOfShadows
             if (spriteRenderer && defaultSprite)
                 spriteRenderer.sprite = defaultSprite;
 
-            spriteRenderer.sortingOrder = 0;
+            spriteRenderer.sortingOrder = defaultSortingOrder;
 
             onMoveComplete?.Invoke();
         }
@@ -49,7 +51,7 @@ namespace SoftHub.AceOfShadows
             transform.localPosition = new Vector3(x, y, z);
 
             spriteRenderer.sprite = (index == 0) ? topCardSprite : defaultSprite;
-            spriteRenderer.sortingOrder = 0;
+            spriteRenderer.sortingOrder = (index == 0) ? topSortingOrder : defaultSortingOrder;
         }
 
         public void Hide()
