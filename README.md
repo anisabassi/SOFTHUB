@@ -51,7 +51,7 @@ An interactive fire particle system:
 - 🎵 [Free Casual Music Pack](https://assetstore.unity.com/packages/audio/music/free-casual-music-pack-242591)  
 - 🎚️ [Minimal UI Sounds](https://assetstore.unity.com/packages/audio/sound-fx/minimal-ui-sounds-78266)  
 - 🌆 [Animated Pixel Art Backgrounds (Free)](https://assetstore.unity.com/packages/2d/environments/animated-pixel-art-backgrounds-free-255208)  
-- 🌀 [iTween Animation Tool](https://assetstore.unity.com/packages/tools/animation/itween-84)
+- 🌀 [DOTween (HOTween v2)](https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676)
 
 ---
 
