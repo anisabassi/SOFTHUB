@@ -66,7 +66,7 @@ namespace SoftHub.AceOfShadows
         /// <returns>Position for the next card.</returns>
         public Vector3 GetNextCardPosition()
         {
-            return transform.position;
+            return ((RectTransform)transform).position;
         }
 
         /// <summary>

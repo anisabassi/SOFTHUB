@@ -94,5 +94,17 @@ namespace SoftHub.AceOfShadows
 
             return options[Random.Range(0, options.Count)];
         }
+
+        public Vector2 ConvertWorldToAnchoredPosition(Transform target, RectTransform cardParent)
+        {
+            Vector2 localPoint;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                cardParent,
+                RectTransformUtility.WorldToScreenPoint(null, target.position),
+                null,
+                out localPoint
+            );
+            return localPoint;
+        }
     }
 }

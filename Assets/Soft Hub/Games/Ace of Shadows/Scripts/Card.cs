@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 namespace SoftHub.AceOfShadows
 {
@@ -8,14 +10,18 @@ namespace SoftHub.AceOfShadows
     /// </summary>
     public class Card : MonoBehaviour
     {
-        [SerializeField]private SpriteRenderer _spriteRenderer;
+        [SerializeField]private Image _cardImage;
         [SerializeField]private Sprite _defaultSprite;
         [SerializeField]private Sprite _topCardSprite;
-        [SerializeField] private int _defaultSortingOrder;
-        [SerializeField] private int _topSortingOrder;
         [SerializeField] private Vector3 _offset = Vector3.zero;
 
         private Action onMoveComplete;
+        private Transform _transformParent;
+        private RectTransform _currentRectTransform;
+        private void Start()
+        {
+            _currentRectTransform = GetComponent<RectTransform>();
+        }
 
         /// <summary>
         /// Moves the card to a target position over a specified duration using easing.
@@ -23,18 +29,27 @@ namespace SoftHub.AceOfShadows
         /// <param name="target">The target world position.</param>
         /// <param name="duration">Duration of the movement.</param>
         /// <param name="onComplete">Callback to invoke when movement finishes.</param>
-        public void MoveTo(Vector3 target, float duration, Action onComplete)
+        public void MoveTo(Vector3 targetWorldPos, float duration, Action onComplete)
         {
-            transform.SetParent(null); // Detach from parent before world movement
             onMoveComplete = onComplete;
 
-            iTween.MoveTo(gameObject, iTween.Hash(
-                "position", target,
-                "time", duration,
-                "easetype", iTween.EaseType.easeInOutCubic,
-                "oncomplete", "OnMoveComplete",
-                "oncompletetarget", gameObject
-            ));
+            _transformParent = this.transform.parent;
+            var grandParent = _transformParent.parent;
+            _currentRectTransform.SetParent(grandParent);  // Set parent as grandparent
+            _currentRectTransform.SetAsLastSibling();  // Ensure it stays on top in the UI hierarchy
+
+            _currentRectTransform.DOMove(targetWorldPos, duration)
+                .SetEase(Ease.InOutCubic)
+                .OnComplete(() => OnMoveComplete());
+        }
+
+        private Vector2 ConvertWorldToAnchoredPosition(Vector3 worldPos, RectTransform uiParent)
+        {
+            Vector2 screenPoint = Camera.main.WorldToScreenPoint(worldPos);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                uiParent, screenPoint, Camera.main, out Vector2 localPoint
+            );
+            return localPoint;
         }
 
         /// <summary>
@@ -43,11 +58,10 @@ namespace SoftHub.AceOfShadows
         /// </summary>
         private void OnMoveComplete()
         {
-            if (_spriteRenderer && _defaultSprite)
-                _spriteRenderer.sprite = _defaultSprite;
+            if (_cardImage && _defaultSprite)
+                _cardImage.sprite = _defaultSprite;
 
-            _spriteRenderer.sortingOrder = _defaultSortingOrder;
-
+            _currentRectTransform.SetParent(_transformParent);  // Set parent back to the orignal one
             onMoveComplete?.Invoke();
         }
 
@@ -57,16 +71,25 @@ namespace SoftHub.AceOfShadows
         /// <param name="index">Index of the card in the stack (0 = top).</param>
         public void SetVisualAndOffset(int index)
         {
+            if(_currentRectTransform == null)
+                _currentRectTransform = GetComponent<RectTransform>();
+
             gameObject.SetActive(true);
 
-            float x = (_offset.x * index);
-            float y = (_offset.y * index);
-            float z = (_offset.y * index);
-
-            transform.localPosition = new Vector3(x, y, z);
-
-            _spriteRenderer.sprite = (index == 0) ? _topCardSprite : _defaultSprite;
-            _spriteRenderer.sortingOrder = (index == 0) ? _topSortingOrder : _defaultSortingOrder;
+            if (index == 0)
+            {
+                // Apply the offset only to the top card
+                _currentRectTransform.anchoredPosition = new Vector2(_offset.x, _offset.y);
+                _currentRectTransform.SetAsLastSibling(); // Make sure it's visually on top
+                _cardImage.sprite = _topCardSprite;
+            }
+            else
+            {
+                // No offset for lower cards
+                _currentRectTransform.anchoredPosition = Vector2.zero;
+                _currentRectTransform.SetSiblingIndex(index); // Keep stacking order correct
+                _cardImage.sprite = _defaultSprite;
+            }
         }
 
         /// <summary>

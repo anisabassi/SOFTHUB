@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4000566178907958759
+--- !u!1 &1623336716065976826
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8029964869128875338}
-  - component: {fileID: -2270798170430273779}
-  m_Layer: 0
+  - component: {fileID: 4729731288305203352}
+  - component: {fileID: 455316094092972866}
+  - component: {fileID: 1881297186853335473}
+  m_Layer: 5
   m_Name: CardStack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8029964869128875338
-Transform:
+--- !u!224 &4729731288305203352
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4000566178907958759}
-  serializedVersion: 2
+  m_GameObject: {fileID: 1623336716065976826}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,16 +32,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-2270798170430273779
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 200, y: 0}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!222 &455316094092972866
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623336716065976826}
+  m_CullTransparentMesh: 1
+--- !u!114 &1881297186853335473
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4000566178907958759}
+  m_GameObject: {fileID: 1623336716065976826}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aad39517e9288b94aab30cb20c4d1bb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardPrefab: {fileID: 7763237091117637504, guid: 1a5460be5dfb5ef4d90695d295da6081, type: 3}
+  _cardPrefab: {fileID: 2362859968215286399, guid: 1a5460be5dfb5ef4d90695d295da6081, type: 3}
