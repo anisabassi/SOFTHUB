@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3865012602496313092}
   - component: {fileID: 7271052417182479036}
   - component: {fileID: 8802084237870046205}
+  - component: {fileID: 5578358110852988740}
   m_Layer: 5
   m_Name: Main Menu
   m_TagString: Untagged
@@ -134,3 +135,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneName: Soft Hub
+--- !u!114 &5578358110852988740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2870229172951695018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bf418493e177f45927805a949bdfb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
