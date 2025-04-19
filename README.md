@@ -71,7 +71,7 @@ An interactive fire particle system:
 
 ## 🌐 WebGL Build
 
-> 🔗 _[Insert hosted WebGL link here once deployed]_
+> 🔗 (https://anisabassi.itch.io/soft-hub)
 
 ---
 
