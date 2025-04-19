@@ -848,8 +848,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d570e7ce795618b4dbfed007a2e8b5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalCards: 144
-  stacks:
+  _totalCards: 144
+  _stacks:
   - {fileID: 1901910605}
   - {fileID: 1331980932}
   - {fileID: 352322352}

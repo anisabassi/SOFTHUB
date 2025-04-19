@@ -4,12 +4,13 @@ using UnityEngine;
 
 namespace SoftHub.AceOfShadows
 {
+    /// <summary>
+    /// Manages the deck logic, including distributing cards across stacks and moving them during gameplay.
+    /// </summary>
     public class DeckManager : MonoBehaviour
     {
-        public int totalCards = 144;
-
-        [Tooltip("Assign stack transforms with CardStack component in the scene")]
-        public List<CardStack> stacks;
+        [SerializeField]private int _totalCards = 144;
+        [SerializeField] private List<CardStack> _stacks = new List<CardStack>();
 
         private void Start()
         {
@@ -17,16 +18,22 @@ namespace SoftHub.AceOfShadows
             StartCoroutine(MoveCardRoutine());
         }
 
+        /// <summary>
+        /// Evenly distributes cards across all available stacks.
+        /// </summary>
         private void DistributeCards()
         {
-            int cardsPerStack = totalCards / stacks.Count;
+            int cardsPerStack = _totalCards / _stacks.Count;
 
-            foreach (var stack in stacks)
+            foreach (var stack in _stacks)
             {
                 stack.InitCards(cardsPerStack);
             }
         }
 
+        /// <summary>
+        /// Continuously moves cards from one stack to another at timed intervals.
+        /// </summary>
         private IEnumerator MoveCardRoutine()
         {
             while (true)
@@ -37,8 +44,8 @@ namespace SoftHub.AceOfShadows
                 if (fromIndex == -1) yield break;
 
                 int toIndex = GetRandomTargetStackIndex(fromIndex);
-                var fromStack = stacks[fromIndex];
-                var toStack = stacks[toIndex];
+                var fromStack = _stacks[fromIndex];
+                var toStack = _stacks[toIndex];
 
                 Card topCard = fromStack.GetTopCard();
                 if (topCard != null)
@@ -55,23 +62,31 @@ namespace SoftHub.AceOfShadows
             }
         }
 
-
+        /// <summary>
+        /// Returns the index of a randomly selected non-empty stack.
+        /// </summary>
+        /// <returns>Index of a non-empty stack, or -1 if none found.</returns>
         private int GetRandomNonEmptyStackIndex()
         {
             List<int> valid = new List<int>();
-            for (int i = 0; i < stacks.Count; i++)
+            for (int i = 0; i < _stacks.Count; i++)
             {
-                if (!stacks[i].IsEmpty())
+                if (!_stacks[i].IsEmpty())
                     valid.Add(i);
             }
 
             return valid.Count > 0 ? valid[Random.Range(0, valid.Count)] : -1;
         }
 
+        /// <summary>
+        /// Returns a random stack index that is not equal to the excluded index.
+        /// </summary>
+        /// <param name="excludeIndex">Index to exclude from selection.</param>
+        /// <returns>Random target stack index.</returns>
         private int GetRandomTargetStackIndex(int excludeIndex)
         {
             List<int> options = new List<int>();
-            for (int i = 0; i < stacks.Count; i++)
+            for (int i = 0; i < _stacks.Count; i++)
             {
                 if (i != excludeIndex)
                     options.Add(i);

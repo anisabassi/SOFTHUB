@@ -6,14 +6,15 @@ using UnityEngine.UI;
 
 namespace SoftHub.MagicWords
 {
+    /// <summary>
+    /// Handles loading and displaying dialogue lines with avatars from a remote JSON source.
+    /// </summary>
     public class DialogueManager : MonoBehaviour
     {
-        public string jsonUrl = "https://private-624120-softgamesassignment.apiary-mock.com/v2/magicwords";
-        public List<DialogueData> CurrentData = new List<DialogueData>();
-
-        public TextMeshProUGUI _dialogueText;
-        public TextMeshProUGUI _avatarText;
-
+        [SerializeField] private string _jsonUrl = "https://private-624120-softgamesassignment.apiary-mock.com/v2/magicwords";
+        [SerializeField] private List<DialogueData> CurrentData = new List<DialogueData>();
+        [SerializeField] private TextMeshProUGUI _dialogueText;
+        [SerializeField] private TextMeshProUGUI _avatarText;
         [SerializeField] private Button _previousButton;
         [SerializeField] private Button _nextButton;
 
@@ -21,12 +22,12 @@ namespace SoftHub.MagicWords
 
         void Start()
         {
-            DialogueFetcher fetcher = new DialogueFetcher(this, jsonUrl);
+            DialogueFetcher fetcher = new DialogueFetcher(this, _jsonUrl);
 
             fetcher.OnSuccess += OnDialogueLoaded;
             fetcher.OnFailure += OnDialogueFailed;
 
-            fetcher.Fetch();
+            fetcher.LoadDialogueData();
 
             _previousButton.onClick.AddListener(PreviousDialogue);
             _nextButton.onClick.AddListener(NextDialogue);
@@ -38,6 +39,9 @@ namespace SoftHub.MagicWords
             _nextButton.onClick.RemoveListener(NextDialogue);
         }
 
+        /// <summary>
+        /// Called when dialogue JSON is successfully loaded and parsed.
+        /// </summary>
         private void OnDialogueLoaded(JsonDialogueData data)
         {
             var currentLines = data.dialogue;
@@ -56,22 +60,35 @@ namespace SoftHub.MagicWords
             UpdateDialogueUI();
         }
 
+        /// <summary>
+        /// Called if loading dialogue fails (e.g. network error).
+        /// </summary>
         private void OnDialogueFailed(string error)
         {
             Debug.LogError("Dialogue load failed: " + error);
         }
 
+
+        /// <summary>
+        /// Converts {emoji} placeholders in dialogue text to TextMeshPro sprite tags.
+        /// </summary>
         private string ReplaceEmojiTags(string input)
         {
             return Regex.Replace(input, @"\{(.*?)\}", m => $"<sprite name=\"{m.Groups[1].Value}\">");
         }
 
+        /// <summary>
+        /// Wraps avatar names with sprite tags for display in TextMeshPro.
+        /// </summary>
         private string AddAvatarTags(string name)
         {
             return $"<sprite name=\"{name}\">";
         }
 
-        public void NextDialogue()
+        /// <summary>
+        /// Moves forward in the dialogue sequence.
+        /// </summary>
+        private void NextDialogue()
         {
             if (_dialogueIndex < CurrentData.Count - 1)
             {
@@ -80,7 +97,10 @@ namespace SoftHub.MagicWords
             }
         }
 
-        public void PreviousDialogue()
+        /// <summary>
+        /// Moves backward in the dialogue sequence.
+        /// </summary>
+        private void PreviousDialogue()
         {
             if (_dialogueIndex > 0)
             {
@@ -89,6 +109,9 @@ namespace SoftHub.MagicWords
             }
         }
 
+        /// <summary>
+        /// Updates the dialogue and avatar UI based on the current index.
+        /// </summary>
         private void UpdateDialogueUI()
         {
             if (CurrentData.Count == 0 || _dialogueIndex < 0 || _dialogueIndex >= CurrentData.Count)

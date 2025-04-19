@@ -100,9 +100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a91f998c7c46b44e8ad20706093ab07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 452806253264201653}
-  defaultSprite: {fileID: 21300000, guid: c7bf45f0ef95bed4491c5809fc6bf484, type: 3}
-  topCardSprite: {fileID: 21300000, guid: 5915cdc174101e540b3349e21ee2cd74, type: 3}
-  defaultSortingOrder: 1
-  topSortingOrder: 2
-  offset: {x: 0.1, y: 0.1, z: 0}
+  _spriteRenderer: {fileID: 452806253264201653}
+  _defaultSprite: {fileID: 21300000, guid: c7bf45f0ef95bed4491c5809fc6bf484, type: 3}
+  _topCardSprite: {fileID: 21300000, guid: 5915cdc174101e540b3349e21ee2cd74, type: 3}
+  _defaultSortingOrder: 1
+  _topSortingOrder: 2
+  _offset: {x: -0.1, y: -0.1, z: 0}

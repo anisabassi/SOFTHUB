@@ -3,19 +3,26 @@ using UnityEngine;
 
 namespace SoftHub.AceOfShadows
 {
+    /// <summary>
+    /// Represents a card in the game, handling its visual representation and movement.
+    /// </summary>
     public class Card : MonoBehaviour
     {
-        public SpriteRenderer spriteRenderer;
-        public Sprite defaultSprite;
-        public Sprite topCardSprite;
-
-        public int defaultSortingOrder;
-        public int topSortingOrder;
-
-        public Vector3 offset = Vector3.zero;
+        [SerializeField]private SpriteRenderer _spriteRenderer;
+        [SerializeField]private Sprite _defaultSprite;
+        [SerializeField]private Sprite _topCardSprite;
+        [SerializeField] private int _defaultSortingOrder;
+        [SerializeField] private int _topSortingOrder;
+        [SerializeField] private Vector3 _offset = Vector3.zero;
 
         private Action onMoveComplete;
 
+        /// <summary>
+        /// Moves the card to a target position over a specified duration using easing.
+        /// </summary>
+        /// <param name="target">The target world position.</param>
+        /// <param name="duration">Duration of the movement.</param>
+        /// <param name="onComplete">Callback to invoke when movement finishes.</param>
         public void MoveTo(Vector3 target, float duration, Action onComplete)
         {
             transform.SetParent(null); // Detach from parent before world movement
@@ -30,30 +37,41 @@ namespace SoftHub.AceOfShadows
             ));
         }
 
+        /// <summary>
+        /// Called by iTween when movement is completed.
+        /// Resets the sprite and sorting order to default.
+        /// </summary>
         private void OnMoveComplete()
         {
-            if (spriteRenderer && defaultSprite)
-                spriteRenderer.sprite = defaultSprite;
+            if (_spriteRenderer && _defaultSprite)
+                _spriteRenderer.sprite = _defaultSprite;
 
-            spriteRenderer.sortingOrder = defaultSortingOrder;
+            _spriteRenderer.sortingOrder = _defaultSortingOrder;
 
             onMoveComplete?.Invoke();
         }
 
+        /// <summary>
+        /// Sets the card’s visual and position based on its index in a stack.
+        /// </summary>
+        /// <param name="index">Index of the card in the stack (0 = top).</param>
         public void SetVisualAndOffset(int index)
         {
             gameObject.SetActive(true);
 
-            float x = (offset.x * index);
-            float y = (offset.y * index);
-            float z = (offset.y * index);
+            float x = (_offset.x * index);
+            float y = (_offset.y * index);
+            float z = (_offset.y * index);
 
             transform.localPosition = new Vector3(x, y, z);
 
-            spriteRenderer.sprite = (index == 0) ? topCardSprite : defaultSprite;
-            spriteRenderer.sortingOrder = (index == 0) ? topSortingOrder : defaultSortingOrder;
+            _spriteRenderer.sprite = (index == 0) ? _topCardSprite : _defaultSprite;
+            _spriteRenderer.sortingOrder = (index == 0) ? _topSortingOrder : _defaultSortingOrder;
         }
 
+        /// <summary>
+        /// Hides the card by disabling its GameObject.
+        /// </summary>
         public void Hide()
         {
             gameObject.SetActive(false); 

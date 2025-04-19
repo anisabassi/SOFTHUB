@@ -2,6 +2,10 @@ using UnityEngine;
 
 namespace SoftHub.PhoenixFlame
 {
+    /// <summary>
+    /// Controls the emission of a particle system, typically used for effects like fire or smoke.
+    /// Provides methods to start and stop the emission of particles.
+    /// </summary>
     public class ParticleControl : MonoBehaviour
     {
         [Tooltip("The ParticleSystem that controls the fire effect.")]

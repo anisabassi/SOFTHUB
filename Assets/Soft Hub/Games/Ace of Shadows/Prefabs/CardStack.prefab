@@ -44,6 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad39517e9288b94aab30cb20c4d1bb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardPrefab: {fileID: 7763237091117637504, guid: 1a5460be5dfb5ef4d90695d295da6081, type: 3}
-  offsetX: 0.1
-  offsetY: 0.1
+  _cardPrefab: {fileID: 7763237091117637504, guid: 1a5460be5dfb5ef4d90695d295da6081, type: 3}

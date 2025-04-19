@@ -3,21 +3,16 @@ using UnityEngine.UI;
 
 namespace SoftHub.PhoenixFlame
 {
+    /// <summary>
+    /// Manages the fire effect controlled via an Animator.
+    /// Allows toggling fire on and off through UI buttons,
+    /// updating the animator's boolean parameter accordingly.
+    /// </summary>
     public class FireManager : MonoBehaviour
     {
-        [Header("Fire Animator Settings")]
-        [Tooltip("Animator component controlling the fire effects.")]
         [SerializeField]private Animator _fireAnimator;
-
-        [Header("Animation Parameters")]
-        [Tooltip("Boolean parameter in the Animator that controls the fire state.")]
-        [SerializeField] private string _firingParameter = "isFiring"; // The bool parameter in Animator
-
-        [Header("UI Buttons")]
-        [Tooltip("Button to enable the fire.")]
+        [SerializeField] private string _firingParameter = "isFiring";
         [SerializeField] private Button _enableFireButton;
-
-        [Tooltip("Button to disable the fire.")]
         [SerializeField] private Button _disableFireButton;
 
         private void Start()
@@ -29,10 +24,6 @@ namespace SoftHub.PhoenixFlame
 
                 // Set initial button states
                 UpdateButtonStates(true);
-            }
-            else
-            {
-                Debug.LogError("UI Buttons not assigned.");
             }
         }
 

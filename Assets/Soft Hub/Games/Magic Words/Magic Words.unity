@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 259678690}
   - component: {fileID: 259678689}
   m_Layer: 5
-  m_Name: Avatar
+  m_Name: Avatar Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 669380474}
   - component: {fileID: 669380477}
   m_Layer: 5
-  m_Name: Prev
+  m_Name: Prev Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1010,7 +1010,7 @@ GameObject:
   - component: {fileID: 1476910928}
   - component: {fileID: 1476910932}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Dialogue Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1112,7 +1112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b17c57eb3e4ab474681d7824fb94421b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonUrl: https://private-624120-softgamesassignment.apiary-mock.com/v2/magicwords
+  _jsonUrl: https://private-624120-softgamesassignment.apiary-mock.com/v2/magicwords
   CurrentData: []
   _dialogueText: {fileID: 452830727}
   _avatarText: {fileID: 1290203032}
@@ -1130,7 +1130,7 @@ GameObject:
   - component: {fileID: 1910133573}
   - component: {fileID: 1910133572}
   m_Layer: 0
-  m_Name: Background 2
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1250,7 +1250,7 @@ GameObject:
   - component: {fileID: 342900882610264106}
   - component: {fileID: 342900882610264108}
   m_Layer: 5
-  m_Name: Next
+  m_Name: Next Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

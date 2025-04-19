@@ -4,6 +4,11 @@ using UnityEngine.UI;
 
 namespace SoftHub
 {
+    /// <summary>
+    /// Handles scene loading through a UI button.
+    /// Automatically binds to the Button component on the same GameObject,
+    /// and loads the specified scene when clicked.
+    /// </summary>
     public class SceneLoader : MonoBehaviour
     {
         [SerializeField]private string _sceneName;
@@ -26,7 +31,10 @@ namespace SoftHub
             }
         }
 
-        // Call this method to load a scene by its name
+        /// <summary>
+        /// Loads the scene with the name specified in the _sceneName field.
+        /// Make sure the scene is added to the build settings.
+        /// </summary>
         public void LoadScene()
         {
             SceneManager.LoadScene(_sceneName);

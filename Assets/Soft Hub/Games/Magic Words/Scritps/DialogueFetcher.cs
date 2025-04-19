@@ -1,37 +1,46 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
+using System;
 
 namespace SoftHub.MagicWords
 {
-    using System;
-    using System.Collections;
-    using UnityEngine;
-    using UnityEngine.Networking;
-
+    /// <summary>
+    /// Responsible for fetching dialogue data from a remote JSON source.
+    /// </summary>
     public class DialogueFetcher
     {
-        private MonoBehaviour coroutineRunner;
-
         public event Action<JsonDialogueData> OnSuccess;
         public event Action<string> OnFailure;
 
-        private string jsonUrl;
+        private MonoBehaviour _coroutineRunner;
+        private string _jsonUrl;
 
+        /// <summary>
+        /// Constructor for initializing the DialogueFetcher with a coroutine runner and target URL.
+        /// </summary>
+        /// <param name="runner">MonoBehaviour instance used to run coroutines.</param>
+        /// <param name="url">URL pointing to the JSON dialogue data.</param>
         public DialogueFetcher(MonoBehaviour runner, string url)
         {
-            coroutineRunner = runner;
-            jsonUrl = url;
+            _coroutineRunner = runner;
+            _jsonUrl = url;
         }
 
-        public void Fetch()
+        /// <summary>
+        /// Begins the fetch operation for the dialogue data.
+        /// </summary>
+        public void LoadDialogueData()
         {
-            coroutineRunner.StartCoroutine(LoadDialogue());
+            _coroutineRunner.StartCoroutine(LoadDialogue());
         }
 
+        /// <summary>
+        /// Coroutine that performs the web request and handles response parsing or error reporting.
+        /// </summary>
         private IEnumerator LoadDialogue()
         {
-            UnityWebRequest www = UnityWebRequest.Get(jsonUrl);
+            UnityWebRequest www = UnityWebRequest.Get(_jsonUrl);
             yield return www.SendWebRequest();
 
             if (www.result == UnityWebRequest.Result.Success)
